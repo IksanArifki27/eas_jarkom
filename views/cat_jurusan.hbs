@@ -29,9 +29,9 @@
       </div>
     </nav>
     <div class="container">
-      <h1 class="text-center">Tabel Mahasiswa</h1>
+      <h1 class="text-center">Tabel Dosen</h1>
       <button
-        class="btn btn-primary mb-5"
+        class="btn btn-success mb-5 "
         data-toggle="modal"
         data-target="#myModalAdd"
       >Tambah Baru</button>
@@ -40,32 +40,26 @@
         <thead>
           <tr>
             <th>No</th>
-            <th>Nama</th>
-            <th>nbi</th>
-            <th>id jurusan</th>
+            <th>Nama Jurusan</th>
             <th>Aksi</th>
           </tr>
         </thead>
         <tbody>
           {{#each results}}
             <tr>
-              <td>{{id_mhs}}</td>
-              <td>{{nama}}</td>
-              <td>{{nbi}}</td>
               <td>{{id_jurusan}}</td>
+              <td>{{nama}}</td>
               <td>
                 <a
                   href="javascript:void(0);"
                   class="btn btn-sm btn-info edit"
-                  data-id="{{id_mhs}}"
+                  data-id="{{id_jurusan}}"
                   data-nama="{{nama}}"
-                  data-nbi="{{nbi}}"
-                  data-id_jurusan="{{id_jurusan}}"
                 >Edit</a>
                 <a
                   href="javascript:void(0);"
                   class="btn btn-sm btn-danger delete"
-                  data-id="{{id_mhs}}"
+                  data-id="{{id_jurusan}}"
                 >Delete</a>
               </td>
             </tr>
@@ -74,8 +68,8 @@
       </table>
     </div>
 
-    <!-- Tambah data mahasiswa-->
-    <form action="/save" method="post">
+    <!-- Tambah data jurusan-->
+    <form action="/simpan" method="post">
       <div
         class="modal fade"
         id="myModalAdd"
@@ -87,7 +81,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Tambah data mhs</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Tambah data jurusan</h5>
               <button
                 type="button"
                 class="close"
@@ -103,30 +97,11 @@
                   type="text"
                   name="nama"
                   class="form-control"
-                  placeholder="Masukan nama"
+                  placeholder="Masukan NAMA jurusan "
                   required
                 />
               </div>
-
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="nbi"
-                  class="form-control"
-                  placeholder="masukan nbi"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="id_jurusan"
-                  class="form-control"
-                  placeholder="masukan id_jurusan"
-                  required
-                />
-              </div>
-            
+              
             </div>
             <div class="modal-footer">
               <button
@@ -142,7 +117,7 @@
     </form>
 
     <!-- Edit tabel-->
-    <form action="/update" method="post">
+    <form action="/perbarui" method="post">
       <div
         class="modal fade"
         id="EditModal"
@@ -154,7 +129,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Edit Data mhs</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Edit Data jurusan</h5>
               <button
                 type="button"
                 class="close"
@@ -170,32 +145,15 @@
                   type="text"
                   name="nama"
                   class="form-control nama"
-                  placeholder="masukan nama"
+                  placeholder="masukan Nama jurusan "
                   required
                 />
               </div>
 
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="nbi"
-                  class="form-control nbi"
-                  placeholder="masukan nbi"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <input
-                  type="text"
-                  name="id_jurusan"
-                  class="form-control id_jurusan"
-                  placeholder="masukan id_jurusan"
-                  required
-                />
-              </div>
+             
             </div>
             <div class="modal-footer">
-              <input type="hidden" name="id" class="id_mhs" />
+              <input type="hidden" name="id" class="id_jurusan" />
               <button
                 type="button"
                 class="btn btn-secondary"
@@ -209,7 +167,7 @@
     </form>
 
     <!-- hapus tabel-->
-    <form id="add-row-form" action="/delete" method="post">
+    <form id="add-row-form" action="/hapus" method="post">
       <div
         class="modal fade"
         id="DeleteModal"
@@ -235,7 +193,7 @@
             <div class="modal-footer">
               <input
                 type="hidden"
-                name="id_mhs"
+                name="id_jurusan"
                 class="form-control product_id2"
                 required
               />
@@ -256,15 +214,14 @@
     
     <script>
       $(document).ready(function(){ //menampilkan data untuk di edit
-      $('#mytable').on('click','.edit',function(){ var id_mhs =
-      $(this).data('id'); var nama = $(this).data('nama'); var nbi =
-      $(this).data('nbi');var id_jurusan = $(this).data('id_jurusan');
-      $('#EditModal').modal('show'); $('.nama').val(nama); $('.nbi').val(nbi)
-      $('.id_jurusan').val(id_jurusan);$('.id_mhs').val(id_mhs); });
+      $('#mytable').on('click','.edit',function(){ var id_jurusan =
+      $(this).data('id'); var nama = $(this).data('nama'); 
+      $('#EditModal').modal('show'); $('.nama').val(nama);
+      $('.id_jurusan').val(id_jurusan); });
       //manampilkan data untuk dihapus
-      $('#mytable').on('click','.delete',function(){ var id_mhs =
+      $('#mytable').on('click','.delete',function(){ var id_jurusan =
       $(this).data('id'); $('#DeleteModal').modal('show');
-      $('.product_id2').val(id_mhs); }); });
+      $('.product_id2').val(id_jurusan); }); });
     </script>
   </body>
 </html>
